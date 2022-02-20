@@ -7,18 +7,23 @@
     android:orientation="vertical"
     android:padding="16dp"
     tools:context=".MainActivity">
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/txt_product"
-        android:hint="Nome do produto"
-        />
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Inserir"
-        android:id="@+id/btn_insert"/>
+        android:text="Cadastrar produto"
+        android:layout_marginBottom="15dp"
+        android:id="@+id/btn_go_to_insert_product"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/label_amount"
+        android:textFontWeight="700"
+        android:padding="10dp"
+        android:textSize="18sp"
+        android:text="Total: R$ 0.00"
+        />
+
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

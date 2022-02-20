@@ -1,5 +1,6 @@
 package com.example.listadecompras
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -12,8 +13,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val productsListView = findViewById<ListView>(R.id.list_view_product)
-        val txtField = findViewById<EditText>(R.id.txt_product)
-        val btnInsert = findViewById<Button>(R.id.btn_insert)
+        val amount = findViewById<TextView>(R.id.label_amount)
+        val goToRegister = findViewById<Button>(R.id.btn_go_to_insert_product)
 
         val adapter = ArrayAdapter<String>(
             this,
@@ -22,13 +23,10 @@ class MainActivity : AppCompatActivity() {
 
         productsListView.adapter = adapter
 
-        btnInsert.setOnClickListener {
-            val product = txtField.text.toString()
+        goToRegister.setOnClickListener {
+            val intent = Intent(this, ProductRegisterActivity::class.java)
 
-            if(product.isNotBlank()){
-                txtField.text.clear()
-                adapter.add(product)
-            } else txtField.error = "Preencha um valor"
+            startActivity(intent)
         }
 
         productsListView.setOnItemLongClickListener {
