@@ -18,8 +18,6 @@ class ProductAdapter(context: Context)
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val view: View
-        val product = getItem(position) as Product
-        val priceFormat = NumberFormat.getCurrencyInstance(Locale("pt", "br"))
 
         if (convertView != null) view = convertView
         else
@@ -30,17 +28,20 @@ class ProductAdapter(context: Context)
                     false,
                 )
 
+        val product = getItem(position)
+        val priceFormat = NumberFormat.getCurrencyInstance(Locale("pt", "br"))
+
 
         val title = view.findViewById<TextView>(R.id.label_title)
         val quantity = view.findViewById<TextView>(R.id.txt_quantity)
         val price = view.findViewById<TextView>(R.id.label_amount)
         val image = view.findViewById<ImageView>(R.id.imageview_product)
 
-        title.text = product.title
-        quantity.text = product.quantity.toString()
-        price.text = priceFormat.format(product.price.toString())
+        title.text = product?.title
+        quantity.text = product?.quantity.toString()
+        price.text = priceFormat.format(product?.price.toString())
 
-        if(product.image != null) image.setImageBitmap(product.image)
+        if(product?.image != null) image.setImageBitmap(product?.image)
 
         return view
     }
