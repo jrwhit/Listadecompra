@@ -5,31 +5,30 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.*
+import com.example.listadecompras.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
 
-        val productsListView = findViewById<ListView>(R.id.list_view_product)
-        val amount = findViewById<TextView>(R.id.label_amount)
-        val goToRegister = findViewById<Button>(R.id.btn_go_to_insert_product)
+        val productAdapter = ProductAdapter(this)
 
-        val adapter = ArrayAdapter<String>(
-            this,
-            android.R.layout.simple_list_item_1
-        )
+        productAdapter.addAll(productsGlobal)
 
-        productsListView.adapter = adapter
+        binding.listViewProduct.adapter = productAdapter
 
-        goToRegister.setOnClickListener {
+        binding.btnGoToInsertProduct.setOnClickListener {
             val intent = Intent(this, ProductRegisterActivity::class.java)
 
             startActivity(intent)
         }
 
-        productsListView.setOnItemLongClickListener {
+        binding.listViewProduct.setOnItemLongClickListener {
                 parent: AdapterView<*>,
                 view: View,
                 position: Int,
@@ -37,7 +36,7 @@ class MainActivity : AppCompatActivity() {
 
             val item = parent.getItemAtPosition(position)
 
-            adapter.remove(item as String?)
+//            productAdapter.remove(binding.labelAmount as String?)
 
             true
         }

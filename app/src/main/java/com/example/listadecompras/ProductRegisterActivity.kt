@@ -13,16 +13,31 @@ class ProductRegisterActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        val product = binding.txtNameProduct.text.toString()
-        val quantity = binding.txtQuantity.text.toString()
-        val price = binding.txtPrice.text.toString()
+        binding.btnInsert.setOnClickListener {
 
-        if(product.isNotEmpty() && quantity.isNotEmpty() && price.isNotEmpty()) {
+            val title = binding.txtNameProduct.text.toString()
+            val quantity = binding.txtQuantity.text.toString()
+            val price = binding.txtPrice.text.toString()
 
-        }else{
-            if(product.isEmpty()) binding.txtNameProduct.error = "Digite o nome do produto"
-                else if (quantity.isEmpty()) binding.txtQuantity.error = "Digite a quantidade"
-                    else binding.txtPrice.error = "Digite o preço do produto"
+            if(title.isNotEmpty() && quantity.isNotEmpty() && price.isNotEmpty()) {
+                val product = Product("1", price.toDouble(), title, quantity.toInt())
+
+                productsGlobal.add(product)
+
+                binding.txtNameProduct.text.clear()
+                binding.txtQuantity.text.clear()
+                binding.txtPrice.text.clear()
+
+            }else{
+                binding.txtNameProduct.error = if(title.isEmpty())  "Digite o nome do produto"
+                else null
+
+                binding.txtQuantity.error =  if (quantity.isEmpty()) "Digite a quantidade"
+                else null
+
+                binding.txtPrice.error = if (price.isEmpty())  "Digite o preço do produto"
+                else null
+            }
         }
     }
 }
