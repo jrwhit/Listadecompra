@@ -8,7 +8,7 @@
         <entry key="app/src/main/res/drawable/rectangle.xml" value="0.18385416666666668" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_product_register.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/horizontal_product_item.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/horizontal_product_item.xml" value="0.25" />
       </map>
     </option>
   </component>

@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.TextView
+import java.text.NumberFormat
+import java.util.*
 
 class ProductAdapter(context: Context)
     : ArrayAdapter<Product>(
@@ -17,6 +19,7 @@ class ProductAdapter(context: Context)
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val view: View
         val product = getItem(position) as Product
+        val priceFormat = NumberFormat.getCurrencyInstance(Locale("pt", "br"))
 
         if (convertView != null) view = convertView
         else
@@ -35,7 +38,7 @@ class ProductAdapter(context: Context)
 
         title.text = product.title
         quantity.text = product.quantity.toString()
-        price.text = product.price.toString()
+        price.text = priceFormat.format(product.price.toString())
 
         if(product.image != null) image.setImageBitmap(product.image)
 
