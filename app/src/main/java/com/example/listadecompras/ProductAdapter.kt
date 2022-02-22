@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.TextView
+import com.example.listadecompras.databinding.HorizontalProductItemBinding
 import java.text.NumberFormat
 import java.util.*
 
@@ -15,6 +16,8 @@ class ProductAdapter(context: Context)
         context,
         R.layout.horizontal_product_item,
     ){
+
+    private lateinit var bindings: HorizontalProductItemBinding
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val view: View
@@ -28,20 +31,22 @@ class ProductAdapter(context: Context)
                     false,
                 )
 
+        bindings = HorizontalProductItemBinding.bind(view)
+
         val product = getItem(position)
-        val priceFormat = NumberFormat.getCurrencyInstance(Locale("pt", "br"))
+        val priceFormat = NumberFormat.getCurrencyInstance(Locale("pt", "BR"))
 
 
-        val title = view.findViewById<TextView>(R.id.label_title)
-        val quantity = view.findViewById<TextView>(R.id.txt_quantity)
-        val price = view.findViewById<TextView>(R.id.label_amount)
-        val image = view.findViewById<ImageView>(R.id.imageview_product)
+        val title = bindings.textViewTitle
+        val quantity = bindings.textViewQuantity
+        val price = bindings.textViewPrice
+        val image = bindings.productImage
 
-        title.text = product?.title
-        quantity.text = product?.quantity.toString()
-        price.text = priceFormat.format(product?.price.toString())
+        title.text = if (product?.title != null) product.title else ""
+        quantity.text = if(product?.quantity != null) product.quantity.toString() else ""
+        price.text = if(product?.price != null) priceFormat.format(product.price) else ""
 
-        if(product?.image != null) image.setImageBitmap(product?.image)
+        if(product?.image != null) image.setImageBitmap(product.image)
 
         return view
     }

@@ -18,8 +18,6 @@ class MainActivity : AppCompatActivity() {
 
         val productAdapter = ProductAdapter(this)
 
-        productAdapter.addAll(productsGlobal)
-
         binding.listViewProduct.adapter = productAdapter
 
         binding.btnGoToInsertProduct.setOnClickListener {
@@ -36,9 +34,19 @@ class MainActivity : AppCompatActivity() {
 
             val item = parent.getItemAtPosition(position)
 
-//            productAdapter.remove(binding.labelAmount as String?)
+            productAdapter.remove(item as Product)
 
             true
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        val adapter = binding.listViewProduct.adapter as ProductAdapter
+
+        adapter.clear()
+
+        adapter.addAll(productsGlobal)
     }
 }
