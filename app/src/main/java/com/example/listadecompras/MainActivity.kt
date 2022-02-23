@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.view.View
 import android.widget.*
 import com.example.listadecompras.databinding.ActivityMainBinding
+import java.text.NumberFormat
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -48,5 +50,13 @@ class MainActivity : AppCompatActivity() {
         adapter.clear()
 
         adapter.addAll(productsGlobal)
+
+        val formatPTBr = NumberFormat.getCurrencyInstance(Locale("pr", "BR"))
+
+        var sum = productsGlobal.sumOf {
+            it.price * it.quantity
+        }
+
+        binding.labelAmount.text = "Total: ${formatPTBr.format(sum)}"
     }
 }
