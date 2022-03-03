@@ -1,12 +1,10 @@
 package com.example.listadecompras
 
 import android.content.Intent
-import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.*
-import androidx.activity.result.contract.ActivityResultContracts
 import com.example.listadecompras.databinding.ActivityMainBinding
 import java.text.NumberFormat
 import java.util.*
@@ -60,15 +58,5 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.labelAmount.text = "Total: ${formatPTBr.format(sum)}"
-    }
-
-    fun openPictures() {
-        val intent = Intent(Intent.ACTION_GET_CONTENT)
-
-        intent.type = "image/*"
-
-        val getContent = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
-            // Handle the returned Uri
-        }
     }
 }

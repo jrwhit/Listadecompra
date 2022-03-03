@@ -1,7 +1,11 @@
 package com.example.listadecompras
 
+import android.app.Activity
+import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.activity.result.contract.ActivityResultContracts
 import com.example.listadecompras.databinding.ActivityProductRegisterBinding
 
 class ProductRegisterActivity : AppCompatActivity() {
@@ -38,6 +42,33 @@ class ProductRegisterActivity : AppCompatActivity() {
                 binding.txtPrice.error = if (price.isEmpty())  "Digite o preço do produto"
                 else null
             }
+        }
+
+        binding.imageviewProduct.setOnLongClickListener {
+            openPictures()
+        }
+    }
+
+    fun openPictures() {
+        val intent = Intent(Intent.ACTION_GET_CONTENT)
+
+        intent.type = "image/*"
+
+        var resultLauncher = registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                // parse result and perform action
+            }
+        }
+
+        resultLauncher.launch(intent)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if(data != null) {
+
         }
     }
 }
