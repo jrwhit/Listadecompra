@@ -7,6 +7,8 @@ import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.listadecompras.databinding.ActivityProductRegisterBinding
+import org.jetbrains.anko.db.insert
+import org.jetbrains.anko.toast
 
 class ProductRegisterActivity : AppCompatActivity() {
     private val REQUEST_CODE = 1000
@@ -29,13 +31,26 @@ class ProductRegisterActivity : AppCompatActivity() {
             val price = binding.txtPrice.text.toString()
 
             if(title.isNotEmpty() && quantity.isNotEmpty() && price.isNotEmpty()) {
-                val product = Product("1", price.toDouble(), title, quantity.toInt(), imageBitMap)
 
-                productsGlobal.add(product)
+                database.use {
+                    val responseDatabase = insert(
+                        "product",
+                        "name" to title,
+                        "quantity" to quantity.toInt(),
+                        "price" to price.toDouble(),
+                        "photo" to imageBitMap?.toByteArray(),
+                    )
 
-                binding.txtNameProduct.text.clear()
-                binding.txtQuantity.text.clear()
-                binding.txtPrice.text.clear()
+                    if(responseDatabase != -1L ) {
+                        toast("Item inserido com sucesso")
+
+                        binding.txtNameProduct.text.clear()
+                        binding.txtQuantity.text.clear()
+                        binding.txtPrice.text.clear()
+                    }else{
+                        toast("Error ao inserir produto")
+                    }
+                }
 
             }else{
                 binding.txtNameProduct.error = if(title.isEmpty())  "Digite o nome do produto"
