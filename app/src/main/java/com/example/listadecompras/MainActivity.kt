@@ -6,6 +6,9 @@ import android.os.Bundle
 import android.view.View
 import android.widget.*
 import com.example.listadecompras.databinding.ActivityMainBinding
+import org.jetbrains.anko.db.parseList
+import org.jetbrains.anko.db.select
+import org.jetbrains.anko.db.rowParser
 import java.text.NumberFormat
 import java.util.*
 
@@ -47,16 +50,32 @@ class MainActivity : AppCompatActivity() {
 
         val adapter = binding.listViewProduct.adapter as ProductAdapter
 
-        adapter.clear()
+        database.use {
+            select("product").exec {
+                val parser = rowParser {
+                        id: Int,
+                        name: String,
+                        quantity: Int,
+                        price: Double,
+                        photo: ByteArray? -> "photo"
 
-        adapter.addAll(productsGlobal)
+                    Product(id, price, name, quantity, photo?.toBitmap())
+                }
 
-        val formatPTBr = NumberFormat.getCurrencyInstance(Locale("pr", "BR"))
+                val products = parseList(parser)
 
-        var sum = productsGlobal.sumOf {
-            it.price * it.quantity
+                adapter.clear()
+
+                adapter.addAll(products)
+
+                val formatPTBr = NumberFormat.getCurrencyInstance(Locale("pr", "BR"))
+
+                var sum = productsGlobal.sumOf {
+                    it.price * it.quantity
+                }
+
+                binding.labelAmount.text = "Total: ${formatPTBr.format(sum)}"
+            }
         }
-
-        binding.labelAmount.text = "Total: ${formatPTBr.format(sum)}"
     }
 }
