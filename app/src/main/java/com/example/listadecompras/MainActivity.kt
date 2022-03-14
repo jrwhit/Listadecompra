@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.*
 import com.example.listadecompras.databinding.ActivityMainBinding
+import org.jetbrains.anko.db.delete
 import org.jetbrains.anko.db.parseList
 import org.jetbrains.anko.db.select
 import org.jetbrains.anko.db.rowParser
@@ -37,9 +38,13 @@ class MainActivity : AppCompatActivity() {
                 position: Int,
                 id: Long ->
 
-            val item = parent.getItemAtPosition(position)
+            val item: Product = parent.getItemAtPosition(position) as Product
 
-            productAdapter.remove(item as Product)
+            database.use {
+                delete("product", "id = {id}", "id" to item.id)
+            }
+
+            productAdapter.remove(item)
 
             true
         }
@@ -70,7 +75,7 @@ class MainActivity : AppCompatActivity() {
 
                 val formatPTBr = NumberFormat.getCurrencyInstance(Locale("pr", "BR"))
 
-                var sum = productsGlobal.sumOf {
+                var sum = products.sumOf {
                     it.price * it.quantity
                 }
 
