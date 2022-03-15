@@ -10,16 +10,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ListaDeCompras">
         <activity
-            android:name=".ProductRegisterActivity"
+            android:name=".view.ProductRegisterActivity"
             android:exported="true">
 
             <meta-data android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity"/>
+                android:value=".view.MainActivity"/>
 
         </activity>
 
         <activity
-            android:name=".MainActivity"
+            android:name=".view.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,10 +1,11 @@
-package com.example.listadecompras
+package com.example.listadecompras.view
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.*
+import com.example.listadecompras.*
 import com.example.listadecompras.databinding.ActivityMainBinding
 import org.jetbrains.anko.db.delete
 import org.jetbrains.anko.db.parseList
