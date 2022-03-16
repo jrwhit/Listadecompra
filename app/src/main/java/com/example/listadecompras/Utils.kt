@@ -4,8 +4,6 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import java.io.ByteArrayOutputStream
 
-val productsGlobal = mutableListOf<Product>()
-
 fun Bitmap.toByteArray(): ByteArray {
     val stream = ByteArrayOutputStream()
 

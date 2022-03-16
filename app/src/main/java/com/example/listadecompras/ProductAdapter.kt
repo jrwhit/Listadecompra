@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.core.content.ContextCompat.startActivity
 import com.example.listadecompras.databinding.HorizontalProductItemBinding
+import com.example.listadecompras.view.MainActivity
 import com.example.listadecompras.view.ProductRegisterActivity
 import java.text.NumberFormat
 import java.util.*
@@ -17,7 +18,7 @@ class ProductAdapter(context: Context)
     : ArrayAdapter<Product>(
         context,
         R.layout.horizontal_product_item,
-    ){
+    ) {
 
     private lateinit var bindings: HorizontalProductItemBinding
 
@@ -53,7 +54,7 @@ class ProductAdapter(context: Context)
         bindings.editButton.setOnClickListener {
             val intent = Intent(context, ProductRegisterActivity::class.java)
 
-            if (product != null) {
+            if(product != null) {
                 intent.putExtra("id", product.id)
                 intent.putExtra("title", product.title)
                 intent.putExtra("price", product.price)
@@ -61,7 +62,7 @@ class ProductAdapter(context: Context)
                 intent.putExtra("image", product.image)
             }
 
-            startActivity(context, intent, null)
+            view.context.startActivity(intent)
         }
 
         return view

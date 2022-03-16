@@ -36,7 +36,6 @@ class ProductRegisterActivity : AppCompatActivity() {
                 b.get("price") as Double,
                 b.get("title") as String,
                 b.get("quantity") as Int,
-                b.get("image") as Bitmap,
             )
 
             product = extra
