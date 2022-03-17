@@ -7,6 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.Button
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.core.content.ContextCompat.startActivity
 import com.example.listadecompras.databinding.HorizontalProductItemBinding
 import com.example.listadecompras.view.MainActivity
@@ -20,8 +23,6 @@ class ProductAdapter(context: Context)
         R.layout.horizontal_product_item,
     ) {
 
-    private lateinit var bindings: HorizontalProductItemBinding
-
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val view: View
 
@@ -34,16 +35,15 @@ class ProductAdapter(context: Context)
                     false,
                 )
 
-        bindings = HorizontalProductItemBinding.bind(view)
-
         val product = getItem(position)
         val priceFormat = NumberFormat.getCurrencyInstance(Locale("pt", "BR"))
 
 
-        val title = bindings.textViewTitle
-        val quantity = bindings.textViewQuantity
-        val price = bindings.textViewPrice
-        val image = bindings.productImage
+        val title = view.findViewById<TextView>(R.id.text_view_title)
+        val quantity = view.findViewById<TextView>(R.id.text_view_quantity)
+        val price = view.findViewById<TextView>(R.id.text_view_price)
+        val image = view.findViewById<ImageView>(R.id.imageview_product)
+        val button = view.findViewById<Button>(R.id.btn_insert)
 
         title.text = if (product?.title != null) product.title else ""
         quantity.text = if(product?.quantity != null) product.quantity.toString() else ""
@@ -51,7 +51,7 @@ class ProductAdapter(context: Context)
 
         if(product?.image != null) image.setImageBitmap(product.image)
 
-        bindings.editButton.setOnClickListener {
+        button.setOnClickListener {
             val intent = Intent(context, ProductRegisterActivity::class.java)
 
             if(product != null) {
